@@ -1,5 +1,5 @@
-const CACHE='surgical-library-v1';
-const ASSETS=['./','./index.html','./manifest.webmanifest','./icon.svg'];
+const CACHE='surgical-library-v2';
+const ASSETS=['./','./index.html','./manifest.webmanifest','./icon.svg','./data/studies.json'];
 self.addEventListener('install',event=>event.waitUntil(caches.open(CACHE).then(cache=>cache.addAll(ASSETS))));
 self.addEventListener('activate',event=>event.waitUntil(caches.keys().then(keys=>Promise.all(keys.filter(key=>key!==CACHE).map(key=>caches.delete(key))))));
 self.addEventListener('fetch',event=>{
