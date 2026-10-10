@@ -1,0 +1,381 @@
+{
+  "updatedAt": "2026-10-10T10:11:13.507Z",
+  "studies": [
+    {
+      "id": "L-001",
+      "title": "ChEETAh",
+      "year": 2022,
+      "category": "L",
+      "specialty": "عدوى موضع الجراحة",
+      "evidence": "تجربة عشوائية عنقودية",
+      "verdict": "يدعم تغيير الممارسة",
+      "status": "active"
+    },
+    {
+      "id": "L-002",
+      "title": "DIPLOMA",
+      "year": "2023/2025",
+      "category": "L",
+      "specialty": "جراحة البنكرياس",
+      "evidence": "تجربة عشوائية",
+      "verdict": "قابل للتطبيق الانتقائي",
+      "status": "active"
+    },
+    {
+      "id": "G-001",
+      "title": "WSES acute appendicitis guideline",
+      "year": 2020,
+      "category": "G",
+      "specialty": "التهاب الزائدة الحاد",
+      "evidence": "إرشاد رسمي",
+      "verdict": "معتمد",
+      "status": "active"
+    },
+    {
+      "id": "G-002",
+      "title": "WSES acute mesenteric ischemia guideline",
+      "year": 2022,
+      "category": "G",
+      "specialty": "نقص التروية المساريقية",
+      "evidence": "إرشاد رسمي",
+      "verdict": "معتمد",
+      "status": "active"
+    },
+    {
+      "id": "G-003",
+      "title": "WSES perforated peptic ulcer guideline",
+      "year": 2020,
+      "category": "G",
+      "specialty": "القرحة المنثقبة",
+      "evidence": "إرشاد رسمي",
+      "verdict": "معتمد",
+      "status": "active"
+    },
+    {
+      "id": "C-001",
+      "title": "SPICY",
+      "year": 2024,
+      "category": "C",
+      "specialty": "داء كرون",
+      "evidence": "دراسة جراحية",
+      "verdict": "نشطة",
+      "status": "active"
+    },
+    {
+      "id": "C-003",
+      "title": "PUCCINI",
+      "year": 2022,
+      "category": "C",
+      "specialty": "كرون والرعاية المحيطة",
+      "evidence": "دراسة أترابية مستقبلية",
+      "verdict": "مؤثرة في القرار",
+      "status": "active"
+    },
+    {
+      "id": "G-005",
+      "title": "Safe Cholecystectomy Multi-Society Guideline",
+      "year": 2020,
+      "category": "G",
+      "specialty": "المرارة وسلامة القناة الصفراوية",
+      "evidence": "إرشاد متعدد الجمعيات",
+      "verdict": "معتمد",
+      "status": "active"
+    },
+    {
+      "id": "C-005",
+      "title": "Early ileocaecal resection vs biologics meta-analysis",
+      "year": 2026,
+      "category": "C",
+      "specialty": "كرون اللفائفي الأعوري",
+      "evidence": "مراجعة منهجية وتحليل تلوي",
+      "verdict": "يستحق المتابعة",
+      "status": "active"
+    },
+    {
+      "id": "R-006",
+      "title": "PERFECT-Antibiotics",
+      "year": 2025,
+      "category": "R",
+      "specialty": "المضادات المحيطة بالجراحة",
+      "evidence": "دراسة حديثة",
+      "verdict": "نشطة",
+      "status": "active"
+    },
+    {
+      "id": "L-006",
+      "title": "IMPROVE-multi",
+      "year": 2025,
+      "category": "L",
+      "specialty": "الرعاية المحيطة بالجراحة",
+      "evidence": "دراسة محورية",
+      "verdict": "نشطة",
+      "status": "active"
+    },
+    {
+      "id": "G-006",
+      "title": "WSES bile duct injury guideline",
+      "year": "2020/2021",
+      "category": "G",
+      "specialty": "إصابات القناة الصفراوية",
+      "evidence": "إرشاد رسمي",
+      "verdict": "معتمد",
+      "status": "active"
+    },
+    {
+      "id": "C-006",
+      "title": "PISA-II",
+      "year": "2022/2023",
+      "category": "C",
+      "specialty": "كرون حول الشرج",
+      "evidence": "دراسة مقارنة",
+      "verdict": "نشطة",
+      "status": "active"
+    },
+    {
+      "id": "R-007",
+      "title": "Continuous vs intermittent postoperative vital-sign monitoring",
+      "year": 2026,
+      "category": "R",
+      "specialty": "المراقبة بعد الجراحة",
+      "evidence": "دراسة حديثة",
+      "verdict": "يستحق المتابعة",
+      "status": "active"
+    },
+    {
+      "id": "L-007",
+      "title": "ADIGE — prophylactic drain after gastrectomy",
+      "year": "2024/2025",
+      "category": "L",
+      "specialty": "جراحة المعدة",
+      "evidence": "تجربة عشوائية",
+      "verdict": "نشطة",
+      "status": "active"
+    },
+    {
+      "id": "G-007",
+      "title": "Cesena WSES laparoscopic-first emergency surgery guideline",
+      "year": 2023,
+      "category": "G",
+      "specialty": "الجراحة الطارئة بالمنظار",
+      "evidence": "إرشاد رسمي",
+      "verdict": "معتمد",
+      "status": "active"
+    },
+    {
+      "id": "C-007",
+      "title": "Azathioprine plus exclusive enteral nutrition after Crohn resection",
+      "year": 2024,
+      "category": "C",
+      "specialty": "الوقاية بعد استئصال كرون",
+      "evidence": "دراسة علاجية",
+      "verdict": "يستحق المتابعة",
+      "status": "active"
+    },
+    {
+      "id": "L-008",
+      "title": "POISE-3 general-surgery TXA subgroup",
+      "year": 2025,
+      "category": "L",
+      "specialty": "النزف والرعاية المحيطة",
+      "evidence": "تحليل مجموعة فرعية",
+      "verdict": "يستحق المتابعة",
+      "status": "active"
+    },
+    {
+      "id": "G-008",
+      "title": "SAGES minimally invasive splenectomy guideline",
+      "year": 2021,
+      "category": "G",
+      "specialty": "جراحة الطحال",
+      "evidence": "إرشاد حي",
+      "verdict": "لم يتغير",
+      "status": "active"
+    },
+    {
+      "id": "R-009",
+      "title": "Prophylactic mesh in open hepatobiliopancreatic subcostal incision",
+      "year": 2026,
+      "category": "R",
+      "specialty": "HPB والفتوق",
+      "evidence": "RCT أحادية المركز",
+      "verdict": "يغيّر الممارسة انتقائيًا",
+      "status": "active",
+      "doi": "10.1001/jamasurg.2026.4012",
+      "question": "هل تقلل الشبكة الوقائية خلف العضلة الفتق الجراحي لدى مرضى HPB مرتفعي الخطورة؟",
+      "result": "عند 24 شهرًا: 8.1% مع الشبكة مقابل 37.5% دونها؛ ARR 29.4% وNNT يقارب 4.",
+      "critique": "أثر سريري كبير، لكن الدراسة أحادية المركز مع فقد ملحوظ في المتابعة واستبعادات بعد العشوائية؛ لا تعمم على الطوارئ أو الحقول الملوثة."
+    },
+    {
+      "id": "L-009",
+      "title": "DESTIN — upfront endoscopic necrosectomy vs step-up",
+      "year": 2024,
+      "category": "L",
+      "specialty": "البنكرياس والمناظير التداخلية",
+      "evidence": "RCT متعددة المراكز",
+      "verdict": "يغيّر ممارسة المراكز الخبيرة",
+      "status": "active",
+      "doi": "10.1016/S2468-1253(23)00331-X",
+      "question": "هل يقلل التنضير المنظاري المباشر الإجراءات المتكررة مقارنة بالـstep-up في النخر البنكرياسي المصاب؟",
+      "result": "وسيط إعادة التدخلات 1 مقابل 2؛ الفرق −1، P=0.0027. لم تُثبت الدراسة فرقًا في الوفاة.",
+      "critique": "عشوائية وITT جيدان، لكن العينة 70 فقط، ومعظم المرضى لديهم walled-off necrosis ومستقرون؛ قابلية التعميم مرتبطة بمركز تنظير خبير."
+    },
+    {
+      "id": "G-009",
+      "title": "ERAS Society elective colorectal surgery recommendations",
+      "year": "2025/2026",
+      "category": "G",
+      "specialty": "القولون والرعاية المحيطة",
+      "evidence": "إرشاد رسمي",
+      "verdict": "يطبّق الآن",
+      "status": "active",
+      "doi": "10.1016/j.surg.2025.109397",
+      "question": "كيف يُطبق مسار تعافٍ معزز متكامل في جراحة القولون والمستقيم الاختيارية؟",
+      "result": "يدعم تحسين ما قبل العملية، analgesia متعددة الوسائط، ضبط السوائل، التغذية والحركة المبكرتين وتجنب الأنابيب والمصارف الروتينية.",
+      "critique": "جودة الدليل متفاوتة بين العناصر؛ قوة المسار المتكامل أعلى من قوة كثير من عناصره منفردة. صدر corrigendum في 2026."
+    },
+    {
+      "id": "C-009",
+      "title": "Strictureplasty mucosal and transmural healing cohort",
+      "year": 2026,
+      "category": "C",
+      "specialty": "كرون والأمعاء الدقيقة",
+      "evidence": "أتراب رصدية مضبوطة",
+      "verdict": "يستحق المتابعة",
+      "status": "active",
+      "doi": "10.1111/ans.70750",
+      "question": "هل يحدث التئام مخاطي وجداري في موضع strictureplasty دون زيادة النكس مقارنة بالاستئصال؟",
+      "result": "التئام مخاطي 78% وانخفاض سماكة الجدار من 8.25 إلى 5.6 مم؛ لم يظهر فرق في النكس مقابل مجموعة الاستئصال المضبوطة.",
+      "critique": "دراسة غير عشوائية صغيرة ومتابعتها قصيرة؛ propensity matching لا يزيل confounding غير المقاس، لذلك تدعم المحافظة على الأمعاء ولا توسع المؤشرات وحدها."
+    },
+    {
+      "id": "R-001",
+      "title": "Same-Day Discharge Appendicectomy",
+      "year": 2026,
+      "category": "R",
+      "specialty": "الزائدة",
+      "evidence": "دراسة حديثة",
+      "verdict": "محذوفة",
+      "status": "deleted"
+    },
+    {
+      "id": "R-002",
+      "title": "MAP–IAP trajectories in severe pancreatitis",
+      "year": 2026,
+      "category": "R",
+      "specialty": "البنكرياس الحاد",
+      "evidence": "دراسة رصدية",
+      "verdict": "محذوفة",
+      "status": "deleted"
+    },
+    {
+      "id": "R-003",
+      "title": "Intrathecal morphine after pancreaticoduodenectomy",
+      "year": 2026,
+      "category": "R",
+      "specialty": "تسكين الألم",
+      "evidence": "دراسة حديثة",
+      "verdict": "محذوفة",
+      "status": "deleted"
+    },
+    {
+      "id": "L-003",
+      "title": "LASER",
+      "year": 2025,
+      "category": "L",
+      "specialty": "جراحة عامة",
+      "evidence": "دراسة محورية",
+      "verdict": "محذوفة",
+      "status": "deleted"
+    },
+    {
+      "id": "C-002",
+      "title": "Kono-S vs side-to-side anastomosis",
+      "year": 2025,
+      "category": "C",
+      "specialty": "كرون والمفاغرة",
+      "evidence": "دراسة مقارنة",
+      "verdict": "محذوفة",
+      "status": "deleted"
+    },
+    {
+      "id": "R-004",
+      "title": "JCOG0603 long-term results",
+      "year": 2026,
+      "category": "R",
+      "specialty": "أورام جراحية",
+      "evidence": "متابعة طويلة",
+      "verdict": "محذوفة",
+      "status": "deleted"
+    },
+    {
+      "id": "L-004",
+      "title": "FALCON",
+      "year": 2021,
+      "category": "L",
+      "specialty": "عدوى الجروح",
+      "evidence": "تجربة عشوائية",
+      "verdict": "محذوفة",
+      "status": "deleted"
+    },
+    {
+      "id": "G-004",
+      "title": "ERAS Emergency Laparotomy",
+      "year": "2021–2023",
+      "category": "G",
+      "specialty": "فتح البطن الطارئ",
+      "evidence": "إرشاد رسمي",
+      "verdict": "محذوفة",
+      "status": "deleted"
+    },
+    {
+      "id": "C-004",
+      "title": "REMEASURE",
+      "year": 2026,
+      "category": "C",
+      "specialty": "داء كرون",
+      "evidence": "دراسة حديثة",
+      "verdict": "محذوفة",
+      "status": "deleted"
+    },
+    {
+      "id": "R-005",
+      "title": "SUNRRISE",
+      "year": 2025,
+      "category": "R",
+      "specialty": "جراحة عامة",
+      "evidence": "دراسة حديثة",
+      "verdict": "محذوفة",
+      "status": "deleted"
+    },
+    {
+      "id": "L-005",
+      "title": "POINTER",
+      "year": "2021/2023",
+      "category": "L",
+      "specialty": "الرتوج",
+      "evidence": "تجربة عشوائية",
+      "verdict": "محذوفة",
+      "status": "deleted"
+    },
+    {
+      "id": "R-008",
+      "title": "Intrathecal morphine + TAP block after laparoscopic colorectal surgery",
+      "year": 2026,
+      "category": "R",
+      "specialty": "تسكين الألم",
+      "evidence": "دراسة حديثة",
+      "verdict": "محذوفة",
+      "status": "deleted"
+    },
+    {
+      "id": "C-008",
+      "title": "PORCSE proactive vs endoscopy-driven postoperative Crohn treatment",
+      "year": 2026,
+      "category": "C",
+      "specialty": "كرون بعد الجراحة",
+      "evidence": "دراسة حديثة",
+      "verdict": "محذوفة",
+      "status": "deleted"
+    }
+  ]
+}
