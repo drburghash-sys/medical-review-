@@ -1,0 +1,15 @@
+{
+  "name": "مكتبة الدراسات الجراحية",
+  "short_name": "دراسات جراحية",
+  "description": "مكتبة شخصية لتنظيم الدراسات والإرشادات الجراحية ومراجعتها",
+  "lang": "ar",
+  "dir": "rtl",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#0e1719",
+  "theme_color": "#0b5d66",
+  "icons": [
+    {"src":"icon.svg","sizes":"any","type":"image/svg+xml","purpose":"any maskable"}
+  ]
+}
