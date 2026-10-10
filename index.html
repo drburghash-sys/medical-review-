@@ -96,12 +96,31 @@
     {id:'C-008',title:'PORCSE proactive vs endoscopy-driven postoperative Crohn treatment',year:2026,category:'C',specialty:'كرون بعد الجراحة',evidence:'دراسة حديثة',verdict:'محذوفة',status:'deleted'}
   ];
 
-  const storeKey='surgical-library-v1';
-  let studies=JSON.parse(localStorage.getItem(storeKey)||'null')||initialStudies;
+  const preferenceKey='surgical-library-preferences-v2';
+  let studies=[...initialStudies];
   let selectedId='R-009', category='all';
   const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
   const statusName={active:'نشطة',review:'للرجوع',deleted:'محذوفة'};
-  function persist(){localStorage.setItem(storeKey,JSON.stringify(studies));}
+  function getPreferences(){try{return JSON.parse(localStorage.getItem(preferenceKey)||'{}')}catch{return {}}}
+  function persist(){
+    const prefs=getPreferences();
+    studies.forEach(s=>prefs[s.id]={...(prefs[s.id]||{}),status:s.status});
+    localStorage.setItem(preferenceKey,JSON.stringify(prefs));
+  }
+  async function syncLibrary(){
+    try{
+      const response=await fetch(`data/studies.json?v=${Date.now()}`,{cache:'no-store'});
+      if(!response.ok)throw new Error('sync failed');
+      const payload=await response.json(),prefs=getPreferences();
+      studies=payload.studies.map(s=>({...s,...(prefs[s.id]||{})}));
+      const updated=new Date(payload.updatedAt);
+      if(!Number.isNaN(updated.getTime()))document.querySelector('.footer').textContent=`السجل يتحدث تلقائيًا · آخر مزامنة: ${updated.toLocaleDateString('ar-SA')}`;
+    }catch{
+      studies=initialStudies.map(s=>({...s,...(getPreferences()[s.id]||{})}));
+      notify('تعذر التحديث؛ تم فتح النسخة المحفوظة');
+    }
+    render();
+  }
   function esc(v=''){return String(v).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));}
   function notify(msg){const t=$('#toast');t.textContent=msg;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),1800)}
   function visibleStudies(){const q=$('#searchInput').value.trim().toLowerCase(), status=$('#statusFilter').value, sort=$('#sortBy').value;let arr=studies.filter(s=>(status==='all'||s.status===status)&&(category==='all'||s.category===category)&&(!q||[s.id,s.title,s.specialty,s.evidence].join(' ').toLowerCase().includes(q)));arr.sort((a,b)=>sort==='title'?a.title.localeCompare(b.title,'ar'):sort==='year'?String(b.year).localeCompare(String(a.year)):sort==='code'?a.id.localeCompare(b.id):Number(b.id.split('-')[1])-Number(a.id.split('-')[1]));return arr;}
@@ -121,7 +140,7 @@
   $('#installBtn').onclick=async()=>{if(!installPrompt)return;installPrompt.prompt();await installPrompt.userChoice;installPrompt=null;$('#installBtn').hidden=true};
   addEventListener('appinstalled',()=>notify('تم تثبيت التطبيق'));
   if('serviceWorker' in navigator)addEventListener('load',()=>navigator.serviceWorker.register('./sw.js'));
-  render();
+  syncLibrary();
   </script>
 </body>
 </html>
