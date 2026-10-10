@@ -1,0 +1,127 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="مكتبة تفاعلية لتنظيم الدراسات والإرشادات الجراحية ومراجعتها.">
+  <title>مكتبة الدراسات الجراحية</title>
+  <meta name="theme-color" content="#0b5d66">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="icon" type="image/svg+xml" href="icon.svg">
+  <link rel="apple-touch-icon" href="icon.svg">
+  <style>
+    :root{--bg:#f3f7f7;--panel:#fff;--text:#142326;--muted:#627377;--line:#dce7e8;--brand:#0b5d66;--brand2:#0e7b78;--accent:#d7b56d;--danger:#ad3b3b;--shadow:0 18px 45px rgba(16,54,58,.09);--radius:20px}
+    :root[data-theme="dark"]{--bg:#0e1719;--panel:#152225;--text:#edf5f4;--muted:#a8b9ba;--line:#2a3b3e;--brand:#5fc4c1;--brand2:#8ad7d4;--accent:#e4c67d;--danger:#ff8a8a;--shadow:0 18px 45px rgba(0,0,0,.24)}
+    *{box-sizing:border-box} body{margin:0;background:var(--bg);color:var(--text);font-family:"Tahoma","Arial",sans-serif;line-height:1.65} button,input,select{font:inherit} button{cursor:pointer}
+    .shell{max-width:1450px;margin:auto;padding:22px}.topbar{display:flex;align-items:center;justify-content:space-between;gap:16px;margin-bottom:18px}.identity{display:flex;align-items:center;gap:12px}.logo{width:52px;height:52px;border-radius:16px;background:linear-gradient(135deg,var(--brand),var(--brand2));display:grid;place-items:center;color:white;box-shadow:var(--shadow)}.logo svg{width:29px}.identity h1{font-size:clamp(1.25rem,2.4vw,1.8rem);margin:0}.identity p{margin:0;color:var(--muted);font-size:.9rem}.top-actions{display:flex;gap:8px}.icon-btn,.btn{border:1px solid var(--line);background:var(--panel);color:var(--text);border-radius:12px;padding:10px 13px}.icon-btn:hover,.btn:hover{border-color:var(--brand);color:var(--brand)}.btn.primary{background:var(--brand);color:white;border-color:var(--brand)}
+    .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:14px}.stat{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:16px;box-shadow:0 8px 24px rgba(16,54,58,.04)}.stat .number{font-size:1.65rem;font-weight:800;color:var(--brand)}.stat .label{color:var(--muted);font-size:.88rem}
+    .workspace{display:grid;grid-template-columns:minmax(0,1fr) 390px;gap:16px;align-items:start}.library,.detail{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow)}.library{padding:18px;min-height:620px}.detail{position:sticky;top:18px;padding:22px;max-height:calc(100vh - 36px);overflow:auto}
+    .toolbar{display:grid;grid-template-columns:minmax(200px,1fr) 170px 170px;gap:10px;margin-bottom:12px}.search{position:relative}.search input,.toolbar select{width:100%;border:1px solid var(--line);background:var(--bg);color:var(--text);padding:12px 14px;border-radius:12px;outline:none}.search input:focus,.toolbar select:focus{border-color:var(--brand);box-shadow:0 0 0 3px color-mix(in srgb,var(--brand) 15%,transparent)}
+    .filters{display:flex;gap:8px;flex-wrap:wrap;margin:0 0 16px}.chip{border:1px solid var(--line);background:transparent;color:var(--muted);border-radius:999px;padding:7px 12px}.chip.active{background:var(--brand);border-color:var(--brand);color:white}.results-meta{display:flex;justify-content:space-between;color:var(--muted);font-size:.88rem;margin-bottom:10px}
+    .cards{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:11px}.card{position:relative;border:1px solid var(--line);border-radius:16px;padding:15px;background:color-mix(in srgb,var(--panel) 94%,var(--bg));transition:.18s ease}.card:hover{border-color:color-mix(in srgb,var(--brand) 55%,var(--line));transform:translateY(-2px)}.card.selected{border-color:var(--brand);box-shadow:0 0 0 3px color-mix(in srgb,var(--brand) 12%,transparent)}.card-head{display:flex;justify-content:space-between;gap:10px}.code{direction:ltr;display:inline-flex;font-weight:800;color:var(--brand);background:color-mix(in srgb,var(--brand) 10%,transparent);border-radius:8px;padding:3px 8px}.year{color:var(--muted);font-size:.88rem}.title-link{display:block;width:100%;text-align:right;border:0;background:none;color:var(--text);font-weight:800;font-size:1rem;padding:11px 0 5px}.title-link:hover{color:var(--brand)}.meta{color:var(--muted);font-size:.85rem}.badges{display:flex;gap:6px;flex-wrap:wrap;margin-top:12px}.badge{font-size:.78rem;border-radius:999px;padding:3px 8px;background:var(--bg);border:1px solid var(--line)}.badge.status-active{color:#087358}.badge.status-review{color:#865c00}.badge.status-deleted{color:var(--danger)}
+    .detail-empty{min-height:480px;display:grid;place-items:center;text-align:center;color:var(--muted)}.detail-empty svg{width:62px;color:var(--brand);opacity:.65}.detail h2{font-size:1.35rem;line-height:1.45;margin:8px 0}.eyebrow{display:flex;align-items:center;justify-content:space-between;gap:10px}.detail-grid{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin:18px 0}.kv{border:1px solid var(--line);border-radius:12px;padding:10px}.kv small{display:block;color:var(--muted)}.detail section{border-top:1px solid var(--line);padding-top:14px;margin-top:14px}.detail h3{font-size:1rem;margin:0 0 6px;color:var(--brand)}.detail p{margin:0;color:var(--text)}.detail-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:18px}.danger{color:var(--danger)!important}.empty{grid-column:1/-1;text-align:center;padding:55px 20px;color:var(--muted)}
+    .toast{position:fixed;left:24px;bottom:24px;background:#102e31;color:white;padding:11px 16px;border-radius:12px;box-shadow:var(--shadow);opacity:0;transform:translateY(12px);pointer-events:none;transition:.22s}.toast.show{opacity:1;transform:none}.footer{color:var(--muted);font-size:.82rem;text-align:center;padding:16px}
+    @media(max-width:980px){.workspace{grid-template-columns:1fr}.detail{position:relative;top:auto;max-height:none}.cards{grid-template-columns:1fr 1fr}}@media(max-width:700px){.shell{padding:12px}.topbar{align-items:flex-start}.identity p{display:none}.stats{grid-template-columns:1fr 1fr}.toolbar{grid-template-columns:1fr}.cards{grid-template-columns:1fr}.detail-grid{grid-template-columns:1fr}.top-actions .text{display:none}}
+    @media print{body{background:white}.top-actions,.toolbar,.filters,.detail-actions,.footer{display:none!important}.workspace{display:block}.library{box-shadow:none}.detail{display:none}.cards{grid-template-columns:1fr 1fr}.card{break-inside:avoid}.shell{max-width:none}}
+  </style>
+</head>
+<body>
+  <main class="shell">
+    <header class="topbar">
+      <div class="identity"><div class="logo" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M5 4h14v16H5z"/><path d="M8 8h8M8 12h8M8 16h5"/></svg></div><div><h1>مكتبة الدراسات الجراحية</h1><p>سجل شخصي للأبحاث والإرشادات مع مراجعة سريعة</p></div></div>
+      <div class="top-actions"><button class="icon-btn" id="installBtn" title="تثبيت التطبيق" hidden>＋ <span class="text">تثبيت</span></button><button class="icon-btn" id="exportBtn" title="تصدير نسخة احتياطية">⬇ <span class="text">تصدير</span></button><button class="icon-btn" id="printBtn" title="طباعة">⎙</button><button class="icon-btn" id="themeBtn" title="الوضع الداكن">◐</button></div>
+    </header>
+
+    <section class="stats" aria-label="إحصاءات المكتبة">
+      <article class="stat"><div class="number" id="activeCount">0</div><div class="label">مواد نشطة</div></article>
+      <article class="stat"><div class="number" id="reviewCount">0</div><div class="label">للرجوع</div></article>
+      <article class="stat"><div class="number" id="guidelineCount">0</div><div class="label">إرشادات</div></article>
+      <article class="stat"><div class="number" id="deletedCount">0</div><div class="label">محذوفة</div></article>
+    </section>
+
+    <section class="workspace">
+      <div class="library">
+        <div class="toolbar">
+          <label class="search"><input id="searchInput" type="search" placeholder="ابحث بالعنوان أو الرقم أو التخصص…" aria-label="بحث"></label>
+          <select id="statusFilter" aria-label="الحالة"><option value="active">النشطة</option><option value="review">للرجوع</option><option value="deleted">المحذوفة</option><option value="all">كل الحالات</option></select>
+          <select id="sortBy" aria-label="الترتيب"><option value="newest">الأحدث إضافة</option><option value="year">السنة</option><option value="code">الرقم</option><option value="title">العنوان</option></select>
+        </div>
+        <div class="filters" id="categoryFilters"><button class="chip active" data-cat="all">الكل</button><button class="chip" data-cat="R">حديثة R</button><button class="chip" data-cat="L">محورية L</button><button class="chip" data-cat="G">إرشادات G</button><button class="chip" data-cat="C">كرون C</button></div>
+        <div class="results-meta"><span id="resultCount"></span><span>انقر العنوان لفتح التفاصيل هنا</span></div>
+        <div class="cards" id="cards"></div>
+      </div>
+      <aside class="detail" id="detail" aria-live="polite"></aside>
+    </section>
+    <div class="footer">الحفظ محلي داخل هذا المتصفح · آخر تحديث للسجل: 8 أكتوبر 2026</div>
+  </main>
+  <div class="toast" id="toast"></div>
+
+  <script>
+  const initialStudies = [
+    {id:'L-001',title:'ChEETAh',year:2022,category:'L',specialty:'عدوى موضع الجراحة',evidence:'تجربة عشوائية عنقودية',verdict:'يدعم تغيير الممارسة',status:'active'},
+    {id:'L-002',title:'DIPLOMA',year:'2023/2025',category:'L',specialty:'جراحة البنكرياس',evidence:'تجربة عشوائية',verdict:'قابل للتطبيق الانتقائي',status:'active'},
+    {id:'G-001',title:'WSES acute appendicitis guideline',year:2020,category:'G',specialty:'التهاب الزائدة الحاد',evidence:'إرشاد رسمي',verdict:'معتمد',status:'active'},
+    {id:'G-002',title:'WSES acute mesenteric ischemia guideline',year:2022,category:'G',specialty:'نقص التروية المساريقية',evidence:'إرشاد رسمي',verdict:'معتمد',status:'active'},
+    {id:'G-003',title:'WSES perforated peptic ulcer guideline',year:2020,category:'G',specialty:'القرحة المنثقبة',evidence:'إرشاد رسمي',verdict:'معتمد',status:'active'},
+    {id:'C-001',title:'SPICY',year:2024,category:'C',specialty:'داء كرون',evidence:'دراسة جراحية',verdict:'نشطة',status:'active'},
+    {id:'C-003',title:'PUCCINI',year:2022,category:'C',specialty:'كرون والرعاية المحيطة',evidence:'دراسة أترابية مستقبلية',verdict:'مؤثرة في القرار',status:'active'},
+    {id:'G-005',title:'Safe Cholecystectomy Multi-Society Guideline',year:2020,category:'G',specialty:'المرارة وسلامة القناة الصفراوية',evidence:'إرشاد متعدد الجمعيات',verdict:'معتمد',status:'active'},
+    {id:'C-005',title:'Early ileocaecal resection vs biologics meta-analysis',year:2026,category:'C',specialty:'كرون اللفائفي الأعوري',evidence:'مراجعة منهجية وتحليل تلوي',verdict:'يستحق المتابعة',status:'active'},
+    {id:'R-006',title:'PERFECT-Antibiotics',year:2025,category:'R',specialty:'المضادات المحيطة بالجراحة',evidence:'دراسة حديثة',verdict:'نشطة',status:'active'},
+    {id:'L-006',title:'IMPROVE-multi',year:2025,category:'L',specialty:'الرعاية المحيطة بالجراحة',evidence:'دراسة محورية',verdict:'نشطة',status:'active'},
+    {id:'G-006',title:'WSES bile duct injury guideline',year:'2020/2021',category:'G',specialty:'إصابات القناة الصفراوية',evidence:'إرشاد رسمي',verdict:'معتمد',status:'active'},
+    {id:'C-006',title:'PISA-II',year:'2022/2023',category:'C',specialty:'كرون حول الشرج',evidence:'دراسة مقارنة',verdict:'نشطة',status:'active'},
+    {id:'R-007',title:'Continuous vs intermittent postoperative vital-sign monitoring',year:2026,category:'R',specialty:'المراقبة بعد الجراحة',evidence:'دراسة حديثة',verdict:'يستحق المتابعة',status:'active'},
+    {id:'L-007',title:'ADIGE — prophylactic drain after gastrectomy',year:'2024/2025',category:'L',specialty:'جراحة المعدة',evidence:'تجربة عشوائية',verdict:'نشطة',status:'active'},
+    {id:'G-007',title:'Cesena WSES laparoscopic-first emergency surgery guideline',year:2023,category:'G',specialty:'الجراحة الطارئة بالمنظار',evidence:'إرشاد رسمي',verdict:'معتمد',status:'active'},
+    {id:'C-007',title:'Azathioprine plus exclusive enteral nutrition after Crohn resection',year:2024,category:'C',specialty:'الوقاية بعد استئصال كرون',evidence:'دراسة علاجية',verdict:'يستحق المتابعة',status:'active'},
+    {id:'L-008',title:'POISE-3 general-surgery TXA subgroup',year:2025,category:'L',specialty:'النزف والرعاية المحيطة',evidence:'تحليل مجموعة فرعية',verdict:'يستحق المتابعة',status:'active'},
+    {id:'G-008',title:'SAGES minimally invasive splenectomy guideline',year:2021,category:'G',specialty:'جراحة الطحال',evidence:'إرشاد حي',verdict:'لم يتغير',status:'active'},
+    {id:'R-009',title:'Prophylactic mesh in open hepatobiliopancreatic subcostal incision',year:2026,category:'R',specialty:'HPB والفتوق',evidence:'RCT أحادية المركز',verdict:'يغيّر الممارسة انتقائيًا',status:'active',doi:'10.1001/jamasurg.2026.4012',question:'هل تقلل الشبكة الوقائية خلف العضلة الفتق الجراحي لدى مرضى HPB مرتفعي الخطورة؟',result:'عند 24 شهرًا: 8.1% مع الشبكة مقابل 37.5% دونها؛ ARR 29.4% وNNT يقارب 4.',critique:'أثر سريري كبير، لكن الدراسة أحادية المركز مع فقد ملحوظ في المتابعة واستبعادات بعد العشوائية؛ لا تعمم على الطوارئ أو الحقول الملوثة.'},
+    {id:'L-009',title:'DESTIN — upfront endoscopic necrosectomy vs step-up',year:2024,category:'L',specialty:'البنكرياس والمناظير التداخلية',evidence:'RCT متعددة المراكز',verdict:'يغيّر ممارسة المراكز الخبيرة',status:'active',doi:'10.1016/S2468-1253(23)00331-X',question:'هل يقلل التنضير المنظاري المباشر الإجراءات المتكررة مقارنة بالـstep-up في النخر البنكرياسي المصاب؟',result:'وسيط إعادة التدخلات 1 مقابل 2؛ الفرق −1، P=0.0027. لم تُثبت الدراسة فرقًا في الوفاة.',critique:'عشوائية وITT جيدان، لكن العينة 70 فقط، ومعظم المرضى لديهم walled-off necrosis ومستقرون؛ قابلية التعميم مرتبطة بمركز تنظير خبير.'},
+    {id:'G-009',title:'ERAS Society elective colorectal surgery recommendations',year:'2025/2026',category:'G',specialty:'القولون والرعاية المحيطة',evidence:'إرشاد رسمي',verdict:'يطبّق الآن',status:'active',doi:'10.1016/j.surg.2025.109397',question:'كيف يُطبق مسار تعافٍ معزز متكامل في جراحة القولون والمستقيم الاختيارية؟',result:'يدعم تحسين ما قبل العملية، analgesia متعددة الوسائط، ضبط السوائل، التغذية والحركة المبكرتين وتجنب الأنابيب والمصارف الروتينية.',critique:'جودة الدليل متفاوتة بين العناصر؛ قوة المسار المتكامل أعلى من قوة كثير من عناصره منفردة. صدر corrigendum في 2026.'},
+    {id:'C-009',title:'Strictureplasty mucosal and transmural healing cohort',year:2026,category:'C',specialty:'كرون والأمعاء الدقيقة',evidence:'أتراب رصدية مضبوطة',verdict:'يستحق المتابعة',status:'active',doi:'10.1111/ans.70750',question:'هل يحدث التئام مخاطي وجداري في موضع strictureplasty دون زيادة النكس مقارنة بالاستئصال؟',result:'التئام مخاطي 78% وانخفاض سماكة الجدار من 8.25 إلى 5.6 مم؛ لم يظهر فرق في النكس مقابل مجموعة الاستئصال المضبوطة.',critique:'دراسة غير عشوائية صغيرة ومتابعتها قصيرة؛ propensity matching لا يزيل confounding غير المقاس، لذلك تدعم المحافظة على الأمعاء ولا توسع المؤشرات وحدها.'},
+    {id:'R-001',title:'Same-Day Discharge Appendicectomy',year:2026,category:'R',specialty:'الزائدة',evidence:'دراسة حديثة',verdict:'محذوفة',status:'deleted'},
+    {id:'R-002',title:'MAP–IAP trajectories in severe pancreatitis',year:2026,category:'R',specialty:'البنكرياس الحاد',evidence:'دراسة رصدية',verdict:'محذوفة',status:'deleted'},
+    {id:'R-003',title:'Intrathecal morphine after pancreaticoduodenectomy',year:2026,category:'R',specialty:'تسكين الألم',evidence:'دراسة حديثة',verdict:'محذوفة',status:'deleted'},
+    {id:'L-003',title:'LASER',year:2025,category:'L',specialty:'جراحة عامة',evidence:'دراسة محورية',verdict:'محذوفة',status:'deleted'},
+    {id:'C-002',title:'Kono-S vs side-to-side anastomosis',year:2025,category:'C',specialty:'كرون والمفاغرة',evidence:'دراسة مقارنة',verdict:'محذوفة',status:'deleted'},
+    {id:'R-004',title:'JCOG0603 long-term results',year:2026,category:'R',specialty:'أورام جراحية',evidence:'متابعة طويلة',verdict:'محذوفة',status:'deleted'},
+    {id:'L-004',title:'FALCON',year:2021,category:'L',specialty:'عدوى الجروح',evidence:'تجربة عشوائية',verdict:'محذوفة',status:'deleted'},
+    {id:'G-004',title:'ERAS Emergency Laparotomy',year:'2021–2023',category:'G',specialty:'فتح البطن الطارئ',evidence:'إرشاد رسمي',verdict:'محذوفة',status:'deleted'},
+    {id:'C-004',title:'REMEASURE',year:2026,category:'C',specialty:'داء كرون',evidence:'دراسة حديثة',verdict:'محذوفة',status:'deleted'},
+    {id:'R-005',title:'SUNRRISE',year:2025,category:'R',specialty:'جراحة عامة',evidence:'دراسة حديثة',verdict:'محذوفة',status:'deleted'},
+    {id:'L-005',title:'POINTER',year:'2021/2023',category:'L',specialty:'الرتوج',evidence:'تجربة عشوائية',verdict:'محذوفة',status:'deleted'},
+    {id:'R-008',title:'Intrathecal morphine + TAP block after laparoscopic colorectal surgery',year:2026,category:'R',specialty:'تسكين الألم',evidence:'دراسة حديثة',verdict:'محذوفة',status:'deleted'},
+    {id:'C-008',title:'PORCSE proactive vs endoscopy-driven postoperative Crohn treatment',year:2026,category:'C',specialty:'كرون بعد الجراحة',evidence:'دراسة حديثة',verdict:'محذوفة',status:'deleted'}
+  ];
+
+  const storeKey='surgical-library-v1';
+  let studies=JSON.parse(localStorage.getItem(storeKey)||'null')||initialStudies;
+  let selectedId='R-009', category='all';
+  const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
+  const statusName={active:'نشطة',review:'للرجوع',deleted:'محذوفة'};
+  function persist(){localStorage.setItem(storeKey,JSON.stringify(studies));}
+  function esc(v=''){return String(v).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));}
+  function notify(msg){const t=$('#toast');t.textContent=msg;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),1800)}
+  function visibleStudies(){const q=$('#searchInput').value.trim().toLowerCase(), status=$('#statusFilter').value, sort=$('#sortBy').value;let arr=studies.filter(s=>(status==='all'||s.status===status)&&(category==='all'||s.category===category)&&(!q||[s.id,s.title,s.specialty,s.evidence].join(' ').toLowerCase().includes(q)));arr.sort((a,b)=>sort==='title'?a.title.localeCompare(b.title,'ar'):sort==='year'?String(b.year).localeCompare(String(a.year)):sort==='code'?a.id.localeCompare(b.id):Number(b.id.split('-')[1])-Number(a.id.split('-')[1]));return arr;}
+  function render(){const arr=visibleStudies();$('#resultCount').textContent=`${arr.length} مادة`;$('#cards').innerHTML=arr.length?arr.map(s=>`<article class="card ${s.id===selectedId?'selected':''}"><div class="card-head"><span class="code">${esc(s.id)}</span><span class="year">${esc(s.year)}</span></div><button class="title-link" data-open="${s.id}">${esc(s.title)}</button><div class="meta">${esc(s.specialty)} · ${esc(s.evidence)}</div><div class="badges"><span class="badge status-${s.status}">${statusName[s.status]}</span><span class="badge">${esc(s.verdict)}</span></div></article>`).join(''):'<div class="empty">لا توجد مواد تطابق البحث الحالي.</div>';renderStats();renderDetail();}
+  function renderStats(){const count=x=>studies.filter(s=>s.status===x).length;$('#activeCount').textContent=count('active');$('#reviewCount').textContent=count('review');$('#deletedCount').textContent=count('deleted');$('#guidelineCount').textContent=studies.filter(s=>s.category==='G'&&s.status!=='deleted').length;}
+  function renderDetail(){const s=studies.find(x=>x.id===selectedId);if(!s){$('#detail').innerHTML='<div class="detail-empty"><div>اختر عنوانًا لعرض تفاصيله.</div></div>';return}const source=s.doi?`<a class="btn primary" href="https://doi.org/${encodeURIComponent(s.doi)}" target="_blank" rel="noopener">فتح المصدر الأصلي</a>`:'';$('#detail').innerHTML=`<div class="eyebrow"><span class="code">${esc(s.id)}</span><span class="badge status-${s.status}">${statusName[s.status]}</span></div><h2>${esc(s.title)}</h2><div class="meta">${esc(s.specialty)}</div><div class="detail-grid"><div class="kv"><small>السنة</small>${esc(s.year)}</div><div class="kv"><small>نوع الدليل</small>${esc(s.evidence)}</div><div class="kv"><small>الحكم</small>${esc(s.verdict)}</div><div class="kv"><small>DOI</small>${s.doi?esc(s.doi):'غير مسجل'}</div></div>${s.question?`<section><h3>السؤال السريري</h3><p>${esc(s.question)}</p></section>`:''}${s.result?`<section><h3>النتيجة المختصرة</h3><p>${esc(s.result)}</p></section>`:''}${s.critique?`<section><h3>النقد المنهجي</h3><p>${esc(s.critique)}</p></section>`:'<section><h3>التفاصيل</h3><p>العنوان مسجل في المكتبة، ولم يُضف نقده التفصيلي إلى ملف التطبيق بعد.</p></section>'}<div class="detail-actions">${source}${s.status!=='review'&&s.status!=='deleted'?`<button class="btn" data-action="review">ضع للرجوع</button>`:''}${s.status==='review'?`<button class="btn" data-action="active">إعادة للنشطة</button>`:''}${s.status!=='deleted'?`<button class="btn danger" data-action="delete">حذف</button>`:`<button class="btn" data-action="active">استعادة</button>`}</div>`;}
+  $('#cards').addEventListener('click',e=>{const b=e.target.closest('[data-open]');if(b){selectedId=b.dataset.open;render();if(innerWidth<980)$('#detail').scrollIntoView({behavior:'smooth'})}});
+  $('#detail').addEventListener('click',e=>{const b=e.target.closest('[data-action]');if(!b)return;const s=studies.find(x=>x.id===selectedId);if(b.dataset.action==='delete'&&!confirm(`نقل ${s.id} إلى المحذوفات؟`))return;s.status=b.dataset.action;persist();notify(s.status==='deleted'?'نُقلت المادة إلى المحذوفات':'تم تحديث الحالة');render();});
+  ['searchInput','statusFilter','sortBy'].forEach(id=>$('#'+id).addEventListener(id==='searchInput'?'input':'change',render));
+  $('#categoryFilters').addEventListener('click',e=>{const b=e.target.closest('[data-cat]');if(!b)return;category=b.dataset.cat;$$('.chip').forEach(x=>x.classList.toggle('active',x===b));render();});
+  $('#themeBtn').onclick=()=>{const dark=document.documentElement.dataset.theme==='dark';document.documentElement.dataset.theme=dark?'':'dark';localStorage.setItem('surgical-theme',dark?'light':'dark')};
+  $('#printBtn').onclick=()=>print();
+  $('#exportBtn').onclick=()=>{const blob=new Blob([JSON.stringify(studies,null,2)],{type:'application/json'}),a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='surgical-studies-backup.json';a.click();URL.revokeObjectURL(a.href);notify('تم تصدير نسخة JSON')};
+  if(localStorage.getItem('surgical-theme')==='dark')document.documentElement.dataset.theme='dark';
+  let installPrompt;
+  addEventListener('beforeinstallprompt',event=>{event.preventDefault();installPrompt=event;$('#installBtn').hidden=false});
+  $('#installBtn').onclick=async()=>{if(!installPrompt)return;installPrompt.prompt();await installPrompt.userChoice;installPrompt=null;$('#installBtn').hidden=true};
+  addEventListener('appinstalled',()=>notify('تم تثبيت التطبيق'));
+  if('serviceWorker' in navigator)addEventListener('load',()=>navigator.serviceWorker.register('./sw.js'));
+  render();
+  </script>
+</body>
+</html>
