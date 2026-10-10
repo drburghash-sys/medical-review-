@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-10-10T10:11:13.507Z",
+  "updatedAt": "2026-10-10T10:21:19.062Z",
   "studies": [
     {
       "id": "L-001",
@@ -376,6 +376,106 @@
       "evidence": "دراسة حديثة",
       "verdict": "محذوفة",
       "status": "deleted"
+    },
+    {
+      "id": "R-010",
+      "title": "UNSEAL — sutured vs unsutured composite technique for loop ileostomy extraction site",
+      "year": 2026,
+      "category": "R",
+      "specialty": "جراحة القولون والستوما",
+      "evidence": "تجربة عشوائية مفتوحة أحادية المركز",
+      "verdict": "محذوفة بقرار المستخدم",
+      "status": "deleted",
+      "doi": "10.1007/s00464-026-13420-1",
+      "question": "هل تقلل التقنية المركبة غير المخيطة الفتق حول الستوما مقارنة بالتقنية المخيطة؟",
+      "result": "انخفض الفتق حول الستوما من 13.5% إلى 4.8%؛ ARR 8.7% وNNT يقارب 12.",
+      "critique": "تحليل per-protocol مع 17 استبعادًا بعد العشوائية، وتدخل مركب، وP=0.047 وحدود في قابلية التعميم."
+    },
+    {
+      "id": "L-010",
+      "title": "TaLaR — Transanal TME vs Laparoscopic TME for rectal cancer",
+      "year": 2024,
+      "category": "L",
+      "specialty": "سرطان المستقيم وجراحة القولون",
+      "evidence": "تجربة عشوائية متعددة المراكز phase 3 لعدم الدونية",
+      "verdict": "محذوفة بقرار المستخدم",
+      "status": "deleted",
+      "doi": "10.1001/jama.2024.27048",
+      "question": "هل TaTME غير أدنى من laparoscopic TME في سرطان المستقيم المتوسط والمنخفض؟",
+      "result": "البقاء الخالي من المرض 3 سنوات: 82.1% مقابل 79.4%؛ الفرق +2.7%، وأثبت عدم الدونية.",
+      "critique": "هامش عدم الدونية واسع، التحليل ليس ITT كاملًا، والجراحون خبراء؛ لا تثبت التفوق."
+    },
+    {
+      "id": "G-010",
+      "title": "WSES Jerusalem Guidelines 2025 — Acute Appendicitis",
+      "year": "2025/2026",
+      "category": "G",
+      "specialty": "التهاب الزائدة الحاد",
+      "evidence": "إرشاد WSES باستخدام GRADE",
+      "verdict": "محفوظة للرجوع",
+      "status": "review",
+      "doi": "10.1001/jamasurg.2025.6218",
+      "question": "تحديث تشخيص وتصوير وعلاج التهاب الزائدة الحاد لدى الفئات المختلفة.",
+      "result": "يدعم المنظار، وNOM المنتقى دون appendicolith، وتأخير الحالات غير المعقدة حتى 24 ساعة، ومضادات 2–3 أيام بعد source control.",
+      "critique": "35 توصية عبر 19 سؤالًا، لكن جودة الدليل متفاوتة وبعض التوصيات مرتبطة بالسياق والموارد."
+    },
+    {
+      "id": "C-010",
+      "title": "Postoperative Exclusive Enteral Nutrition as Bridging Therapy",
+      "year": 2025,
+      "category": "C",
+      "specialty": "كرون بعد الاستئصال",
+      "evidence": "تجربة عشوائية مفتوحة أحادية المركز",
+      "verdict": "محذوفة بقرار المستخدم",
+      "status": "deleted",
+      "doi": "10.1016/j.clnu.2025.106545",
+      "question": "هل يقلل EEN لمدة شهرين بعد استئصال كرون النكس التنظيري عند سنة مقارنة بالغذاء الطبيعي؟",
+      "result": "النكس التنظيري 18% مع EEN مقابل 38% مع الغذاء الطبيعي.",
+      "critique": "عينة صغيرة ومركز واحد ودراسة مفتوحة؛ يصلح كعلاج مساعد انتقائي ولا يستبدل الوقاية البيولوجية عند مرتفعي الخطورة."
+    },
+    {
+      "id": "R-011",
+      "title": "External Oblique Intercostal Plane Block after laparoscopic cholecystectomy",
+      "year": 2026,
+      "category": "R",
+      "specialty": "التسكين بعد استئصال المرارة",
+      "evidence": "تجربة عشوائية أحادية المركز",
+      "verdict": "محذوفة بقرار المستخدم",
+      "status": "deleted",
+      "doi": "10.1186/s12871-026-04029-x"
+    },
+    {
+      "id": "L-011",
+      "title": "PRIME II — Omission of radiotherapy after breast-conserving surgery",
+      "year": 2023,
+      "category": "L",
+      "specialty": "جراحة وأورام الثدي",
+      "evidence": "تجربة عشوائية متعددة المراكز",
+      "verdict": "محذوفة بقرار المستخدم",
+      "status": "deleted",
+      "doi": "10.1056/NEJMoa2207586"
+    },
+    {
+      "id": "G-011",
+      "title": "ASCRS Clinical Practice Guidelines for Ostomy Surgery",
+      "year": 2022,
+      "category": "G",
+      "specialty": "جراحة الستوما",
+      "evidence": "إرشاد ASCRS باستخدام GRADE",
+      "verdict": "يؤكد الممارسة",
+      "status": "active",
+      "doi": "10.1097/DCR.0000000000002498"
+    },
+    {
+      "id": "C-011",
+      "title": "REPREVIO — Vedolizumab after Crohn resection",
+      "year": 2025,
+      "category": "C",
+      "specialty": "الوقاية بعد استئصال كرون",
+      "evidence": "تجربة عشوائية مزدوجة التعمية مضبوطة بالدواء الوهمي",
+      "verdict": "محذوفة بقرار المستخدم",
+      "status": "deleted",
+      "doi": "10.1016/S2468-1253(24)00317-0"
     }
   ]
 }
