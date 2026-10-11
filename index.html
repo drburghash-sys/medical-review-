@@ -29,7 +29,7 @@
   <main class="shell">
     <header class="topbar">
       <div class="identity"><div class="logo" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M5 4h14v16H5z"/><path d="M8 8h8M8 12h8M8 16h5"/></svg></div><div><h1>مكتبة الدراسات الجراحية</h1><p>سجل شخصي للأبحاث والإرشادات مع مراجعة سريعة</p></div></div>
-      <div class="top-actions"><button class="icon-btn" id="installBtn" title="تثبيت التطبيق" hidden>＋ <span class="text">تثبيت</span></button><button class="icon-btn" id="exportBtn" title="تصدير نسخة احتياطية">⬇ <span class="text">تصدير</span></button><button class="icon-btn" id="printBtn" title="طباعة">⎙</button><button class="icon-btn" id="themeBtn" title="الوضع الداكن">◐</button></div>
+      <div class="top-actions"><button class="icon-btn" id="syncBtn" title="تحديث السجل">↻ <span class="text">تحديث</span></button><button class="icon-btn" id="installBtn" title="تثبيت التطبيق" hidden>＋ <span class="text">تثبيت</span></button><button class="icon-btn" id="exportBtn" title="تصدير نسخة احتياطية">⬇ <span class="text">تصدير</span></button><button class="icon-btn" id="printBtn" title="طباعة">⎙</button><button class="icon-btn" id="themeBtn" title="الوضع الداكن">◐</button></div>
     </header>
 
     <section class="stats" aria-label="إحصاءات المكتبة">
@@ -112,7 +112,8 @@
       const response=await fetch(`data/studies.json?v=${Date.now()}`,{cache:'no-store'});
       if(!response.ok)throw new Error('sync failed');
       const payload=await response.json(),prefs=getPreferences();
-      studies=payload.studies.map(s=>({...s,...(prefs[s.id]||{})}));
+      studies=payload.studies.map(s=>({...s}));
+      localStorage.removeItem(preferenceKey);
       const updated=new Date(payload.updatedAt);
       if(!Number.isNaN(updated.getTime()))document.querySelector('.footer').textContent=`السجل يتحدث تلقائيًا · آخر مزامنة: ${updated.toLocaleDateString('ar-SA')}`;
     }catch{
@@ -132,6 +133,7 @@
   ['searchInput','statusFilter','sortBy'].forEach(id=>$('#'+id).addEventListener(id==='searchInput'?'input':'change',render));
   $('#categoryFilters').addEventListener('click',e=>{const b=e.target.closest('[data-cat]');if(!b)return;category=b.dataset.cat;$$('.chip').forEach(x=>x.classList.toggle('active',x===b));render();});
   $('#themeBtn').onclick=()=>{const dark=document.documentElement.dataset.theme==='dark';document.documentElement.dataset.theme=dark?'':'dark';localStorage.setItem('surgical-theme',dark?'light':'dark')};
+  $('#syncBtn').onclick=async()=>{await syncLibrary();notify('تم تحديث السجل المركزي')};
   $('#printBtn').onclick=()=>print();
   $('#exportBtn').onclick=()=>{const blob=new Blob([JSON.stringify(studies,null,2)],{type:'application/json'}),a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='surgical-studies-backup.json';a.click();URL.revokeObjectURL(a.href);notify('تم تصدير نسخة JSON')};
   if(localStorage.getItem('surgical-theme')==='dark')document.documentElement.dataset.theme='dark';
@@ -141,6 +143,8 @@
   addEventListener('appinstalled',()=>notify('تم تثبيت التطبيق'));
   if('serviceWorker' in navigator)addEventListener('load',()=>navigator.serviceWorker.register('./sw.js'));
   syncLibrary();
+  setInterval(syncLibrary,300000);
+  document.addEventListener('visibilitychange',()=>{if(document.visibilityState==='visible')syncLibrary()});
   </script>
 </body>
 </html>
