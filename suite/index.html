@@ -6,6 +6,8 @@
   <meta name="theme-color" content="#073d48">
   <meta name="description" content="الدراسات الجراحية اليومية والأكاديمية التعليمية: 43 فصلًا بالعربية والإنجليزية">
   <title>SurgRead | الدراسات والأكاديمية</title>
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="icon" href="icon.svg" type="image/svg+xml">
   
   
   <style>
@@ -133,6 +135,7 @@ function critique(){const text=$('paperText').value.trim();if(text.length<100){$
  $('critiqueResult').innerHTML=`<h3>ورقة نقد مبدئية</h3><p class="muted">الإشارات المستخرجة ليست استنتاجات نهائية.</p><p><b>التصميم المحتمل:</b> ${html(design)}</p><p><b>DOI:</b> ${html(doi||'لم يُرصد')}</p><p><b>قيم P المرصودة:</b> ${html(ps.join(' · ')||'غير ظاهرة بالنص')}</p><p><b>فواصل الثقة المرصودة:</b> ${html(ci.join(' · ')||'غير ظاهرة بالنص')}</p><h3>قائمة التقييم السريري</h3><ul><li><b>PICO:</b> حدّد المجتمع والتدخل والمقارنة والنتيجة والمدة.</li><li><b>المنهجية:</b> التخصيص، إخفاؤه، التعمية، المفقودات، ITT والتسجيل المسبق.</li><li><b>الأرقام:</b> المقادير المطلقة والنسبية، CI، دقة النتائج، والضرر مقابل الفائدة.</li><li><b>التحيز:</b> confounding وselection bias والتعددية التحليلية.</li><li><b>التطبيق:</b> قابلية تعميم النتائج على مرضى الجراحة والقرار الحالي.</li></ul><p class="notice">لا تصدر هذه الأداة توصية علاجية تلقائيًا. التفسير النهائي يحتاج تفاصيل الدراسة الكاملة.</p>`}
 function wire(){document.querySelectorAll('.nav-button').forEach(b=>b.addEventListener('click',()=>page(b.dataset.page)));document.querySelectorAll('[data-academytab]').forEach(b=>b.onclick=()=>academyTab(b.dataset.academytab));document.querySelectorAll('[data-studyfilter]').forEach(b=>b.onclick=()=>{state.studyFilter=b.dataset.studyfilter;document.querySelectorAll('[data-studyfilter]').forEach(x=>x.classList.toggle('selected',x===b));renderStudies()});$('syncBtn').onclick=syncStudies;$('studySearch').oninput=renderStudies;$('chapterSearch').oninput=renderChapters;$('unitFilter').onchange=e=>{state.unit=e.target.value;renderChapters()};$('latestStudies').onclick=e=>{const b=e.target.closest('[data-study]');if(b)openStudy(b.dataset.study)};$('archiveGrid').onclick=e=>{const b=e.target.closest('[data-study]');if(b)openStudy(b.dataset.study)};$('chapterList').onclick=e=>{const b=e.target.closest('[data-lesson]');if(b)openLesson(b.dataset.lesson)};$('closeDetail').onclick=()=>$('detailDialog').close();$('detailDialog').addEventListener('click',e=>{if(e.target===$('detailDialog'))$('detailDialog').close()});$('calcRiskBtn').onclick=calcRisk;$('calcDiagnosisBtn').onclick=calcDiagnosis;$('pdfInput').onchange=e=>extractPdf(e.target.files?.[0]);$('critiqueBtn').onclick=critique;window.addEventListener('online',syncStudies)}
 wire();loadAcademy();syncStudies();
+if(location.protocol==='https:' && 'serviceWorker' in navigator)navigator.serviceWorker.register('./sw.js').catch(()=>{});
 
 </script>
 </body>
