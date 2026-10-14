@@ -18,8 +18,8 @@ input[type=file]{font:inherit;max-width:100%;display:block;padding:12px 0}.label
 <main>
 <div id="uploadPanel" class="panel hidden">
 <h2 id="uploadTitle">إضافة الكتاب المرجعي مرة واحدة</h2>
-<p class="muted">للدخول مباشرة إلى الصفحة الصحيحة داخل التطبيق، احفظ نسخة PDF من الكتاب في جهازك واخترها هنا مرة واحدة. يبقى الملف محفوظًا في تخزين التطبيق على هذا الهاتف فقط، ولا يُرفع إلى أي خادم.</p>
-<a class="btn secondary" id="downloadOriginal" target="_blank" rel="noopener noreferrer">تحميل الكتاب الأصلي من منظمة الصحة العالمية ↗</a>
+<p class="muted">للدخول مباشرة إلى الصفحة الصحيحة داخل التطبيق، احفظ نسخة PDF من الكتاب في جهازك واخترها هنا مرة واحدة. يبقى الملف محفوظًا في تخزين التطبيق على هذا الهاتف فقط، ولا يُرفع إلى أي خادم. <strong>بعد الاستيراد، كل ضغطة على رابط الموضوع تفتح الصفحة نفسها فورًا، لا أول الكتاب.</strong></p>
+<a class="btn secondary" id="downloadOriginal" target="_self" rel="noopener noreferrer">تحميل الكتاب الأصلي من منظمة الصحة العالمية ↗</a>
 <label class="label" for="bookFile">ثم اختر ملف PDF الذي نزّلته:</label>
 <input type="file" id="bookFile" accept="application/pdf,.pdf">
 <div id="uploadMessage" class="message alert hidden"></div>
@@ -77,8 +77,13 @@ input[type=file]{font:inherit;max-width:100%;display:block;padding:12px 0}.label
   }catch(e){if(e?.name!=='RenderingCancelledException')status('تعذر عرض الصفحة: '+e.message,true)}
  }
  async function show(file){
-  if(typeof pdfjsLib==='undefined')throw Error('قارئ PDF لم يتم تحميله. اتصل بالإنترنت ثم أعد فتح هذه الصفحة.');
-  pdfjsLib.GlobalWorkerOptions.workerSrc='https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+  if(typeof window.pdfjsLib==='undefined'){
+   await new Promise((resolve,reject)=>{
+     const sc=document.createElement('script');sc.src='https://cdn.jsdelivr.net/npm/pdfjs-dist@3.11.174/build/pdf.min.js';
+     sc.onload=resolve;sc.onerror=()=>reject(Error('تعذر تحميل محرك عرض PDF. تحقق من الاتصال بالإنترنت ثم أعد المحاولة.'));document.head.appendChild(sc)
+   });
+  }
+  window.pdfjsLib.GlobalWorkerOptions.workerSrc='https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
   const raw=await file.arrayBuffer();doc=await pdfjsLib.getDocument({data:new Uint8Array(raw)}).promise;
   page=Math.max(1,Math.min(wanted,doc.numPages));$('reader').classList.remove('hidden');$('uploadPanel').classList.add('hidden');await draw();
  }
