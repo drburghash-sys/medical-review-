@@ -1,4 +1,4 @@
-const CACHE='surgread-inapp-reader-v8'; const CORE=['./','./index.html','./icon.svg','./manifest.webmanifest','./book-reader.html','./book-references.js?v=8'];
+const CACHE='surgread-inapp-reader-v9'; const CORE=['./','./index.html','./icon.svg','./manifest.webmanifest','./book-reader.html','./book-references.js?v=8'];
 self.addEventListener('install',e=>{e.waitUntil(caches.open(CACHE).then(c=>c.addAll(CORE)).then(()=>self.skipWaiting()))});
 self.addEventListener('activate',e=>e.waitUntil(Promise.all([self.clients.claim(),caches.keys().then(keys=>Promise.all(keys.filter(k=>k!==CACHE).map(k=>caches.delete(k))))])));
 self.addEventListener('fetch',e=>{if(e.request.method!=='GET')return;const u=new URL(e.request.url);if(u.pathname.endsWith('/data/studies.json')){e.respondWith(fetch(e.request).then(r=>{if(r.ok){const c=r.clone();caches.open(CACHE).then(cache=>cache.put(e.request,c))}return r}).catch(()=>caches.match(e.request)));return}if(u.origin===location.origin){e.respondWith(caches.match(e.request).then(r=>r||fetch(e.request).then(net=>{if(net.ok)caches.open(CACHE).then(c=>c.put(e.request,net.clone()));return net})));}});
