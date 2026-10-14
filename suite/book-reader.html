@@ -1,0 +1,96 @@
+<!doctype html><html lang="ar" dir="rtl"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#093e47"><title>SurgRead | قارئ الكتاب المرجعي</title>
+<style>
+:root{color-scheme:light;font-family:system-ui,Tahoma,Arial,sans-serif;background:#f2f7f7;color:#16313a}
+*{box-sizing:border-box}body{margin:0}.bar{position:sticky;top:0;z-index:9;background:#093e47;color:#fff;padding:13px max(14px,env(safe-area-inset-right));box-shadow:0 3px 15px #0002}
+.bar h1{font-size:17px;margin:0}.bar small{font-size:12px;color:#b9dad8}.bar button{background:#fff2;color:#fff;border:1px solid #ffffff5c;border-radius:9px;padding:9px;font-size:13px}
+.row{display:flex;align-items:center;gap:8px;flex-wrap:wrap}.row .grow{flex:1}.panel{max-width:940px;margin:12px auto;padding:12px 14px;background:#fff;border:1px solid #d2e6e3;border-radius:15px}
+#pageCanvas{display:block;background:#fff;margin:12px auto;width:auto;max-width:100%;height:auto;box-shadow:0 5px 24px #0002}
+#pageNumber{width:80px;padding:10px;text-align:center;border:1px solid #d1e1df;border-radius:8px;font:inherit}.btn{background:#087d71;color:#fff;border:0;border-radius:10px;padding:10px 13px;font:inherit;cursor:pointer;text-decoration:none;display:inline-flex;align-items:center;justify-content:center;gap:5px}
+.btn.secondary{background:#e9f4f1;color:#125c55}.btn:disabled{opacity:.35}.muted{color:#61777a;font-size:13px;line-height:1.8}.message{padding:13px;border-radius:10px;background:#f0f9f6;color:#11574c;line-height:1.8}.alert{background:#fff7de;color:#735409}.hidden{display:none!important}
+#uploadPanel{border:1px dashed #66ada3;padding:18px;border-radius:14px;background:#f8fdfb}
+input[type=file]{font:inherit;max-width:100%;display:block;padding:12px 0}.label{font-size:12px;font-weight:600;color:#5a7875}
+.navigation{justify-content:center;padding-bottom:2px}.caption{text-align:center;font-size:12px;color:#526869;margin-top:2px}
+#pdfError{white-space:pre-wrap}canvas{touch-action:pan-y}
+</style></head><body>
+<header class="bar"><div class="row"><button id="backBtn" type="button">↩ عودة للدرس</button><div class="grow"><h1>SurgRead · الكتاب المرجعي</h1><small id="heading">تحميل الكتاب...</small></div></div></header>
+<main>
+<div id="uploadPanel" class="panel hidden">
+<h2 id="uploadTitle">إضافة الكتاب المرجعي مرة واحدة</h2>
+<p class="muted">للدخول مباشرة إلى الصفحة الصحيحة داخل التطبيق، احفظ نسخة PDF من الكتاب في جهازك واخترها هنا مرة واحدة. يبقى الملف محفوظًا في تخزين التطبيق على هذا الهاتف فقط، ولا يُرفع إلى أي خادم.</p>
+<a class="btn secondary" id="downloadOriginal" target="_blank" rel="noopener noreferrer">تحميل الكتاب الأصلي من منظمة الصحة العالمية ↗</a>
+<label class="label" for="bookFile">ثم اختر ملف PDF الذي نزّلته:</label>
+<input type="file" id="bookFile" accept="application/pdf,.pdf">
+<div id="uploadMessage" class="message alert hidden"></div>
+</div>
+<div id="reader" class="hidden">
+ <div class="panel">
+   <div class="row navigation">
+    <button id="prev" class="btn secondary" type="button">→ السابقة</button>
+    <span>صفحة PDF</span><input id="pageNumber" type="number" min="1" step="1" aria-label="رقم صفحة PDF"/>
+    <span id="pageOf"></span>
+    <button id="jump" type="button" class="btn secondary">انتقل</button>
+    <button id="next" class="btn secondary" type="button">التالية ←</button>
+   </div>
+   <div class="caption">فتحنا رقم الصفحة المرتبط بالموضوع. يمكنك التنقل قبلها أو بعدها دون العودة إلى بداية الكتاب.</div>
+   <canvas id="pageCanvas"></canvas>
+   <div id="pageStatus" role="status" class="muted"></div>
+   <div class="row" style="margin-top:10px">
+    <button id="zoomOut" class="btn secondary" type="button">− تصغير</button><button id="zoomIn" class="btn secondary" type="button">+ تكبير</button>
+    <button id="replaceBook" type="button" class="btn secondary">تغيير نسخة الكتاب</button>
+   </div>
+ </div>
+</div>
+<div class="panel"><div id="pdfError" role="status" class="muted">جارٍ تحضير قارئ الكتاب…</div></div>
+</main>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+<script>
+(()=>{"use strict";
+ const $=id=>document.getElementById(id);const q=new URLSearchParams(location.search);
+ const language=q.get('book')==='en'?'en':'ar';
+ const wanted=Math.max(1,Math.floor(+q.get('page')||1));
+ const originUrl=language==='ar'?'https://applications.emro.who.int/dsaf/dsa970.pdf':'https://iris.who.int/bitstream/handle/10665/43541/9241547073_eng.pdf?sequence=1';
+ const bookName=language==='ar'?'أساسيات علم الوبائيات — WHO عربي':'Basic Epidemiology — WHO English';
+ const storeKey='basic-epidemiology-who-2e-'+language;
+ $('heading').textContent=bookName;$('uploadTitle').textContent='إضافة '+bookName+' مرة واحدة';
+ $('downloadOriginal').href=originUrl;$('backBtn').onclick=()=>{if(history.length>1)history.back();else location.assign('./#academy')};
+ let doc=null,page=wanted,zoom=1,activeRender=null,db;
+ function status(msg,error=false){$('pdfError').textContent=msg;$('pdfError').style.color=error?'#a03820':'';}
+ const openDb=()=>new Promise((resolve,reject)=>{let req=indexedDB.open('surgread-reference-books',1);req.onupgradeneeded=()=>req.result.createObjectStore('files');req.onsuccess=()=>resolve(req.result);req.onerror=()=>reject(req.error)});
+ async function load(){const d=await openDb();db=d;return new Promise((res,rej)=>{const r=d.transaction('files').objectStore('files').get(storeKey);r.onsuccess=()=>res(r.result||null);r.onerror=()=>rej(r.error)})}
+ async function save(b){return new Promise((res,rej)=>{const tx=db.transaction('files','readwrite');tx.objectStore('files').put(b,storeKey);tx.oncomplete=res;tx.onerror=()=>rej(tx.error)})}
+ async function draw(){
+  if(!doc)return;
+  if(activeRender){try{activeRender.cancel()}catch(_){}activeRender=null}
+  page=Math.max(1,Math.min(page,doc.numPages));$('pageNumber').value=page;$('pageOf').textContent='من '+doc.numPages;
+  $('prev').disabled=page<=1;$('next').disabled=page>=doc.numPages;status('صفحة '+page);
+  try{
+   const pg=await doc.getPage(page);
+   const viewport=pg.getViewport({scale:zoom});const host=$('pageCanvas');const container=Math.min(innerWidth-40,900);
+   const fit=Math.min(1,container/viewport.width);const dpr=Math.min(devicePixelRatio||1,2);
+   const vp=pg.getViewport({scale:zoom*fit*dpr});
+   host.width=Math.ceil(vp.width);host.height=Math.ceil(vp.height);
+   host.style.width=Math.round(vp.width/dpr)+'px';host.style.height=Math.round(vp.height/dpr)+'px';
+   const r=pg.render({canvasContext:host.getContext('2d',{alpha:false}),viewport:vp});activeRender=r;await r.promise;
+   if(activeRender===r)activeRender=null;status('');if(location.hash!=='#page='+page)history.replaceState(null,'',location.pathname+location.search+'#page='+page);
+  }catch(e){if(e?.name!=='RenderingCancelledException')status('تعذر عرض الصفحة: '+e.message,true)}
+ }
+ async function show(file){
+  if(typeof pdfjsLib==='undefined')throw Error('قارئ PDF لم يتم تحميله. اتصل بالإنترنت ثم أعد فتح هذه الصفحة.');
+  pdfjsLib.GlobalWorkerOptions.workerSrc='https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+  const raw=await file.arrayBuffer();doc=await pdfjsLib.getDocument({data:new Uint8Array(raw)}).promise;
+  page=Math.max(1,Math.min(wanted,doc.numPages));$('reader').classList.remove('hidden');$('uploadPanel').classList.add('hidden');await draw();
+ }
+ $('bookFile').onchange=async e=>{const f=e.target.files?.[0];if(!f)return;try{
+  if(f.type!=='application/pdf'&&!f.name.toLowerCase().endsWith('.pdf'))throw Error('اختر ملف PDF فقط');
+  const slice=await f.slice(0,5).text();if(!slice.startsWith('%PDF-'))throw Error('الملف المختار ليس PDF صالحًا');
+  await save(f);await show(f);status('أصبح الكتاب محفوظًا هنا. سيتم فتح الصفحة المطلوبة مباشرة في المرة القادمة.');
+ }catch(err){$('uploadMessage').classList.remove('hidden');$('uploadMessage').textContent=err.message;status('تعذر تحميل الملف.');}};
+ $('prev').onclick=()=>{page--;draw()};$('next').onclick=()=>{page++;draw()};
+ $('jump').onclick=()=>{page=Number($('pageNumber').value)||page;draw()};$('pageNumber').onkeydown=e=>{if(e.key==='Enter'){$('jump').click();e.target.blur()}};
+ $('zoomIn').onclick=()=>{zoom=Math.min(3,zoom+.25);draw()};$('zoomOut').onclick=()=>{zoom=Math.max(.6,zoom-.25);draw()};
+ $('replaceBook').onclick=()=>{$('uploadPanel').classList.remove('hidden');$('uploadPanel').scrollIntoView({behavior:'smooth'})};
+ (async()=>{try{const stored=await load();if(stored){await show(stored)}else{$('uploadPanel').classList.remove('hidden');status('أضف نسخة الكتاب مرة واحدة ليفتح موضع الدرس مباشرة في كل مرة.')}}catch(e){$('uploadPanel').classList.remove('hidden');status('لم نتمكن من فتح قارئ PDF: '+e.message,true)}})();
+})();
+</script></body></html>
