@@ -102,7 +102,7 @@ function renderLinks(id,secIndex=null,heading=''){
  if(!m||!panel)return;
  const pages=secIndex!==null && SEC[id]?.[secIndex]?SEC[id][secIndex]:[m.ar,m.en];
  const ar=pages[0],en=pages[1],isSpecific=secIndex!==null;
- const note=isSpecific?'الجزء المطلوب: «'+E(heading)+'». الروابط أدناه تشير لأقرب فقرة مطابقة أو تمهيدية في الكتابين، وقد لا تغطي كل تفاصيل هذا الجزء.':(m.level==='direct'?'هذا القسم مغطى في الكتابين مع اختلاف الأمثلة.':m.level==='background'?'هذه صفحات تمهيدية للموضوع؛ الدرس التفاعلي يحتوي تفاصيل أوسع.':'هذا المفهوم خارج نطاق المرجعين المعتمدين.');
+ const note=isSpecific?'الجزء المطلوب: «'+E(heading)+'». كل رابط ينتقل مباشرة إلى صفحة PDF المحددة للموضوع؛ وعند عدم توفر شرح مباشر يظهر ذلك صراحة.':(m.level==='direct'?'هذا القسم مغطى في الكتابين مع اختلاف الأمثلة.':m.level==='background'?'هذه صفحات تمهيدية للموضوع؛ الدرس التفاعلي يحتوي تفاصيل أوسع.':'هذا المفهوم خارج نطاق المرجعين المعتمدين.');
  panel.querySelector('#bookRefScope').innerHTML=note;
  panel.querySelector('#bookRefLinks').innerHTML=mkLink('ar',ar,m.arTitle,m.level)+mkLink('en',en,m.enTitle,m.level);
  panel.querySelector('#bookRefNote').textContent=m.note||'';
@@ -119,7 +119,7 @@ function appendPanel(id){
  panel.innerHTML='<h3>📖 لم أفهم — افتح نفس الموضوع في الكتابين</h3><p class="book-ref-caption" id="bookRefScope"></p><div class="book-ref-buttons" id="bookRefLinks"></div><p class="book-ref-note" id="bookRefNote" hidden></p><small id="bookRefPrinted" class="book-ref-footer"></small><button type="button" class="button" id="bookRefReset">العودة إلى المرجع العام لهذا الفصل</button>';
  body.querySelector('h2').insertAdjacentElement('afterend',panel);
  panel.querySelector('#bookRefReset').onclick=()=>renderLinks(id);
- const headings=[...body.querySelectorAll('h3')].filter(x=>!panel.contains(x)).slice(0,3);
+ const headings=[...body.querySelectorAll('h3')].filter(x=>!panel.contains(x) && !x.textContent.includes('اختبر فهمك')).slice(0,3);
  headings.forEach((h,i)=>{
    const entry=(SEC[id] && SEC[id][i])||null;
    const pages=entry || (m.level==='direct' ? [m.ar,m.en] : [null,null]);
