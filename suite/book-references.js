@@ -95,7 +95,7 @@ const mkLink=(language,page,title,level)=>{
  if(page==null)return '<div class="book-ref-unavailable"><b>'+name+'</b><small>لا يوجد شرح موثوق لهذا الجزء في هذا المرجع.</small></div>';
  const real=page+(isArabic?19:13);
  const base=isArabic?BASE_AR:BASE_EN;
- return '<a class="book-ref-link" target="_self" rel="noopener noreferrer" href="'+base+'#page='+real+'"><strong>'+name+'</strong><small>'+E(title)+' — صفحة الكتاب المطبوعة '+page+'</small><span>افتح صفحة PDF ${real} مباشرة ↗</span></a>';
+ return '<a class="book-ref-link" target="_self" rel="noopener noreferrer" href="'+base+'#page='+real+'"><strong>'+name+'</strong><small>'+E(title)+' — صفحة الكتاب المطبوعة '+page+'</small><span>افتح صفحة PDF '+real+' مباشرة ↗</span></a>';
 };
 function renderLinks(id,secIndex=null,heading=''){
  const m=M[id],panel=document.getElementById('twoBookReference');
