@@ -28,6 +28,11 @@ jobs:
       - name: Assemble independently built APK
         working-directory: suite/android
         run: gradle --no-daemon :app:assembleDebug
+      - name: Verify APK signature and alignment
+        working-directory: suite/android
+        run: |
+          /usr/local/lib/android/sdk/build-tools/35.0.0/apksigner verify --verbose app/build/outputs/apk/debug/app-debug.apk
+          /usr/local/lib/android/sdk/build-tools/35.0.0/zipalign -c -v 4 app/build/outputs/apk/debug/app-debug.apk
       - name: Publish APK
         uses: actions/upload-artifact@v4
         with:
