@@ -64,6 +64,17 @@ function render(id){
  const el=document.createElement('section');el.id='twoBookReference';el.className='two-book-reference';
  el.innerHTML='<h3>📖 لم أفهم هذا المفهوم — افتح الكتابين</h3><p class="book-ref-caption">مواضع مرتبطة بنفس موضوع الدرس، وليست دائمًا شرحًا مطابقًا لكل مصطلح. افتح الصفحة المقترحة مباشرة في كل مرجع.</p><div class="book-ref-buttons">'+a+e+'</div>'+(m.note?'<p class="book-ref-note">'+escape(m.note)+'</p>':'')+'<div class="book-ref-subtopics"><b>أجزاء هذا الفصل:</b> '+(sections.length?sections.map(x=>'<span>'+escape(x)+'</span>').join(' '):'')+'</div><small class="book-ref-footer">المصدر العربي: «أساسيات علم الوبائيات» (WHO، 2008). المرجع الإنجليزي المرفوع: Foundations of Epidemiology (Oregon State University، 2020)، وليس إصدار WHO.</small>';
  body.querySelector('h2').insertAdjacentElement('afterend',el);
+ [...body.querySelectorAll('h3')].filter(h=>!el.contains(h)).slice(0,3).forEach(h=>{
+   const btn=document.createElement('button');
+   btn.type='button';btn.className='book-inline-help';
+   btn.textContent='📖 راجع هذا الجزء في المرجعين';
+   btn.onclick=()=>{
+     const caption=el.querySelector('.book-ref-caption');
+     caption.textContent='الجزء المطلوب: '+h.textContent.trim()+' — يعرض الروابط أقرب قسم ذي صلة في الكتابين. قد لا يغطي هذا القسم الفرعي حرفيًا.';
+     el.scrollIntoView({behavior:'smooth',block:'center'});
+   };
+   h.insertAdjacentElement('afterend',btn);
+ });
  lastLesson=id;
 }
 document.addEventListener('click',e=>{
