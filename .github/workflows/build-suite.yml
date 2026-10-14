@@ -1,0 +1,31 @@
+name: SurgRead Fresh Android APK
+on:
+  push:
+    paths:
+      - 'suite/**'
+      - '.github/workflows/build-suite.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+      - uses: android-actions/setup-android@v3
+      - uses: gradle/actions/setup-gradle@v4
+        with:
+          gradle-version: '8.9'
+      - name: Assemble independently built APK
+        working-directory: suite/android
+        run: gradle --no-daemon :app:assembleDebug
+      - name: Publish APK
+        uses: actions/upload-artifact@v4
+        with:
+          name: SurgRead-Fresh-Android-APK
+          path: suite/android/app/build/outputs/apk/debug/app-debug.apk
+          retention-days: 30
