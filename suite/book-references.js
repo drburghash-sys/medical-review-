@@ -31,7 +31,7 @@ const MAP=[
 ['c20',94,70,'فترات الثقة','Confidence intervals','direct','تفسير الدقة وعدم اليقين.'],
 ['c21',97,71,'القوة الإحصائية','Statistical power','direct','أما حساب حجم العينة في التجارب فيرد أيضًا ضمن أنماط الدراسات.'],
 ['c22',91,67,'المتوسط والوسيط والتوزع','Measures of central tendency and spread','direct','المتوسط والوسيط والانحراف المعياري والتوزعات.'],
-['c23',105,79,'تحليلات البقاء ومنحنيات كابلان–ماير','Survival analysis and Kaplan–Meier','direct','راجع أيضًا نموذج Cox في الصفحتين.'],
+['c23',106,79,'تحليلات البقاء ومنحنيات كابلان–ماير','Survival analysis and Kaplan–Meier','direct','راجع أيضًا نموذج Cox في الصفحتين.'],
 ['c24',182,136,'قيمة الاختبار التشخيصي','Value of a diagnostic test','direct','الحساسية والنوعية والقيم التنبؤية حسب السياق.'],
 ['c25',182,136,'قيمة الاختبار التشخيصي','Value of a diagnostic test','background','المبادئ متاحة، لكن LR+ وLR− ليسا مفصّلين كدرس مستقل.'],
 ['c26',182,136,'قيمة الاختبار التشخيصي','Value of a diagnostic test','background','ROC وAUC ومعايرة النماذج ليست مشروحة بالتفصيل.'],
@@ -71,7 +71,7 @@ c19:[[96,71],[96,71],[null,null]],
 c20:[[94,70],[94,70],[null,null]],
 c21:[[97,71],[93,52],[null,null]],
 c22:[[91,67],[91,68],[98,73]],
-c23:[[105,79],[106,79],[105,79]],
+c23:[[106,79],[106,79],[106,79]],
 c24:[[182,136],[182,136],[182,136]],
 c25:[[null,null],[null,null],[182,136]],
 c26:[[null,null],[null,null],[182,136]],
@@ -93,9 +93,9 @@ let selectedLesson=null;
 const mkLink=(language,page,title,level)=>{
  const isArabic=language==='ar';const name=isArabic?'العربي · WHO 2008':'English · WHO 2006';
  if(page==null)return '<div class="book-ref-unavailable"><b>'+name+'</b><small>لا يوجد شرح موثوق لهذا الجزء في هذا المرجع.</small></div>';
- const real=page+(isArabic?19:12);
+ const real=page+(isArabic?19:13);
  const base=isArabic?BASE_AR:BASE_EN;
- return '<a class="book-ref-link" target="_self" rel="noopener noreferrer" href="'+base+'#page='+real+'"><strong>'+name+'</strong><small>'+E(title)+' — صفحة الكتاب المطبوعة '+page+'</small><span>افتح PDF قرب الموضوع ↗</span></a>';
+ return '<a class="book-ref-link" target="_self" rel="noopener noreferrer" href="'+base+'#page='+real+'"><strong>'+name+'</strong><small>'+E(title)+' — صفحة الكتاب المطبوعة '+page+'</small><span>افتح صفحة PDF ${real} مباشرة ↗</span></a>';
 };
 function renderLinks(id,secIndex=null,heading=''){
  const m=M[id],panel=document.getElementById('twoBookReference');
@@ -107,7 +107,7 @@ function renderLinks(id,secIndex=null,heading=''){
  panel.querySelector('#bookRefLinks').innerHTML=mkLink('ar',ar,m.arTitle,m.level)+mkLink('en',en,m.enTitle,m.level);
  panel.querySelector('#bookRefNote').textContent=m.note||'';
  panel.querySelector('#bookRefNote').hidden=!m.note;
- panel.querySelector('#bookRefPrinted').textContent='العربي: رقم PDF = الصفحة المطبوعة + 19 (متحقق منه). الإنجليزي: رابط قريب من الموضع وفق ترتيب صفحات الملف؛ الصفحة المطبوعة مذكورة بدقة من الفهرس، وقد يختلف عداد عارض PDF. إذا لم يفتح الموضع في هاتفك، انتقل إلى رقم الصفحة المطبوعة المعروض.';
+ panel.querySelector('#bookRefPrinted').textContent='العربي: رقم PDF = الصفحة المطبوعة + 19 (متحقق منه). الإنجليزي: رقم PDF = الصفحة المطبوعة + 13 (مقابل ترقيم النسخة الإنجليزية الثانية). الروابط تفتح الصفحات مباشرة في عارض PDF المتاح على جهازك.';
  panel.querySelectorAll('.book-ref-link').forEach(a=>a.setAttribute('aria-label','فتح '+a.querySelector('strong').textContent+' '+a.querySelector('small').textContent));
 }
 function appendPanel(id){
@@ -121,9 +121,23 @@ function appendPanel(id){
  panel.querySelector('#bookRefReset').onclick=()=>renderLinks(id);
  const headings=[...body.querySelectorAll('h3')].filter(x=>!panel.contains(x)).slice(0,3);
  headings.forEach((h,i)=>{
- const b=document.createElement('button');b.type='button';b.className='book-inline-help';b.textContent='📖 شرح هذا الجزء من WHO بالعربي والإنجليزي';
- b.onclick=()=>{renderLinks(id,i,h.textContent.trim());panel.scrollIntoView({behavior:'smooth',block:'start'})};
- h.insertAdjacentElement('afterend',b);
+   const entry=(SEC[id] && SEC[id][i])||null;
+   const pages=entry || (m.level==='direct' ? [m.ar,m.en] : [null,null]);
+   const exact=!!entry && (entry[0]!=null || entry[1]!=null);
+   const row=document.createElement('div');
+   row.className='book-direct-page-links';
+   if(!pages.some(p=>p!=null)){
+     row.innerHTML='<span class="book-no-page">لم يرد شرح مطابق لهذا الجزء في كتابَي WHO.</span>';
+   } else {
+     const links=pages.map((p,j)=>{
+       if(p==null)return '';
+       const arabic=j===0, pdf=p+(arabic?19:13), src=arabic?BASE_AR:BASE_EN;
+       const label=arabic?'📗 العربي · صفحة '+pdf:'📘 English · page '+pdf;
+       return '<a class="book-direct-page-link" target="_self" href="'+src+'#page='+pdf+'" aria-label="'+E(label)+'">'+E(label)+' ↗</a>';
+     }).join('');
+     row.innerHTML=links+(exact?'':'<small>هذه روابط للشرح العام المرتبط بالفصل، وليست مطابقة مؤكدة للفقرة.</small>');
+   }
+   h.insertAdjacentElement('afterend',row);
  });
  selectedLesson=id;renderLinks(id);
 }
