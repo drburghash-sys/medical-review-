@@ -94,8 +94,8 @@ const mkLink=(language,page,title,level)=>{
  const isArabic=language==='ar';const name=isArabic?'العربي · WHO 2008':'English · WHO 2006';
  if(page==null)return '<div class="book-ref-unavailable"><b>'+name+'</b><small>لا يوجد شرح موثوق لهذا الجزء في هذا المرجع.</small></div>';
  const real=page+(isArabic?19:13);
- const base=isArabic?BASE_AR:BASE_EN;
- return '<a class="book-ref-link" target="_self" rel="noopener noreferrer" href="'+base+'#page='+real+'"><strong>'+name+'</strong><small>'+E(title)+' — صفحة الكتاب المطبوعة '+page+'</small><span>افتح صفحة PDF '+real+' مباشرة ↗</span></a>';
+ const viewer='./book-reader.html?book='+(isArabic?'ar':'en')+'&page='+real;
+ return '<a class="book-ref-link" href="'+viewer+'"><strong>'+name+'</strong><small>'+E(title)+' — صفحة الكتاب المطبوعة '+page+'</small><span>فتح داخل SurgRead عند الصفحة '+real+' ←</span></a>';
 };
 function renderLinks(id,secIndex=null,heading=''){
  const m=M[id],panel=document.getElementById('twoBookReference');
@@ -107,7 +107,7 @@ function renderLinks(id,secIndex=null,heading=''){
  panel.querySelector('#bookRefLinks').innerHTML=mkLink('ar',ar,m.arTitle,m.level)+mkLink('en',en,m.enTitle,m.level);
  panel.querySelector('#bookRefNote').textContent=m.note||'';
  panel.querySelector('#bookRefNote').hidden=!m.note;
- panel.querySelector('#bookRefPrinted').textContent='العربي: رقم PDF = الصفحة المطبوعة + 19 (متحقق منه). الإنجليزي: رقم PDF = الصفحة المطبوعة + 13 (مقابل ترقيم النسخة الإنجليزية الثانية). الروابط تفتح الصفحات مباشرة في عارض PDF المتاح على جهازك.';
+ panel.querySelector('#bookRefPrinted').textContent='تفتح الروابط داخل قارئ SurgRead مباشرة عند رقم الصفحة. يلزم اختيار نسخة الكتاب بصيغة PDF مرة واحدة على الجهاز. العربي: رقم PDF = الصفحة المطبوعة + 19 (متحقق منه). الإنجليزي: رقم PDF = الصفحة المطبوعة + 13 (مقابل ترقيم النسخة الإنجليزية الثانية). الروابط تفتح الصفحات مباشرة في عارض PDF المتاح على جهازك.';
  panel.querySelectorAll('.book-ref-link').forEach(a=>a.setAttribute('aria-label','فتح '+a.querySelector('strong').textContent+' '+a.querySelector('small').textContent));
 }
 function appendPanel(id){
@@ -131,9 +131,9 @@ function appendPanel(id){
    } else {
      const links=pages.map((p,j)=>{
        if(p==null)return '';
-       const arabic=j===0, pdf=p+(arabic?19:13), src=arabic?BASE_AR:BASE_EN;
+       const arabic=j===0, pdf=p+(arabic?19:13), src='./book-reader.html?book='+(arabic?'ar':'en')+'&page='+pdf;
        const label=arabic?'📗 العربي · صفحة '+pdf:'📘 English · page '+pdf;
-       return '<a class="book-direct-page-link" target="_self" href="'+src+'#page='+pdf+'" aria-label="'+E(label)+'">'+E(label)+' ↗</a>';
+       return '<a class="book-direct-page-link" href="'+src+'" aria-label="'+E(label)+'">'+E(label)+' ←</a>';
      }).join('');
      row.innerHTML=links+(exact?'':'<small>هذه روابط للشرح العام المرتبط بالفصل، وليست مطابقة مؤكدة للفقرة.</small>');
    }
