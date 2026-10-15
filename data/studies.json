@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-10-14T06:00:00+03:00",
+  "updatedAt": "2026-10-15T06:00:00+03:00",
   "studies": [
     {
       "id": "L-001",
@@ -704,6 +704,66 @@
       "result": "عُشوِش 116 مريضًا؛ التقييم التنظيري توفر لنحو 85 فقط. النكس التنظيري أبلغ عنه 23.8% مقابل 46.5% عند متابعة تقارب 11–13 شهرًا؛ P=0.03، لكن إعادة التحليل المحافظة جعلت الدلالة حدية، والتحليل التجميعي الأوسع لم يثبت فرقًا: RR 0.91، 95% CI 0.70–1.18.",
       "critique": "فقد أكثر من 20% من التقييمات التنظيرية، تناقض عددي منشور، نتيجة وسيطة، وعدم اتساق مع SPICY والتحليلات التلوية. لا تكفي لتغيير التقنية القياسية أو توسيع الاستئصال قرب الجذر.",
       "updatedAt": "2026-10-14T06:00:00+03:00"
+    },
+    {
+      "id": "R-016",
+      "title": "Epidural analgesia vs continuous wound infusion after open pancreaticoduodenectomy",
+      "year": 2026,
+      "category": "R",
+      "specialty": "جراحة البنكرياس والرعاية المحيطة",
+      "evidence": "تجربة عشوائية أحادية المركز",
+      "verdict": "لا يبرر تغيير الممارسة؛ الخياران مقبولان",
+      "status": "active",
+      "DOI": "10.1016/j.pan.2026.07.003",
+      "question": "هل تقلل CWI الحاجة للـnorepinephrine والسوائل مقارنة بـTEA بعد pancreaticoduodenectomy المفتوح دون إضعاف التعافي؟",
+      "result": "116 محللين (58/58): norepinephrine يوم العملية 2.0 مقابل 3.7 mg وPACU fluids 3.0 مقابل 4.0 mL/kg/h لصالح CWI؛ المضاعفات الشديدة 22.4% مقابل 15.5% (P=0.48)، والإقامة 8 أيام في المجموعتين. TEA أعطت ألمًا أقل يوم 1 (NRS 2.4 مقابل 3.9).",
+      "critique": "RCT لكنها أحادية المركز ومفتوحة عمليًا؛ من 434 مريضًا حُلّل 116 فقط، والنتيجة الأولية surrogate وليست مضاعفات أو تعافٍ. المقارنات الثانوية متعددة ومن دون دليل واضح على ضبط multiplicity، ولا توجد CI منشورة في الملخص. الأفضل اختيار التقنية حسب موانع epidural وخبرة الفريق.",
+      "updatedAt": "2026-10-15T06:00:00+03:00"
+    },
+    {
+      "id": "L-016",
+      "title": "PANDORINA — no drain vs prophylactic drain after distal pancreatectomy",
+      "year": 2024,
+      "category": "L",
+      "specialty": "جراحة البنكرياس",
+      "evidence": "تجربة عشوائية دولية متعددة المراكز لعدم الدونية",
+      "verdict": "يغيّر الممارسة لدى المرضى المؤهلين",
+      "status": "active",
+      "DOI": "10.1016/S2468-1253(24)00037-2",
+      "question": "هل سياسة عدم وضع drain غير أدنى من التصريف الوقائي بعد distal pancreatectomy الاختيارية؟",
+      "result": "282 مريضًا في 12 مركزًا: major morbidity خلال 90 يومًا 15% (21/138) بلا drain مقابل 20% (29/144) مع drain؛ RD −4.9 نقاط، 95% CI −13.8 إلى 4.0، P لعدم الدونية=0.0022. CR-POPF: 12% مقابل 27%؛ RD −15.5، 95% CI −24.5 إلى −6.5.",
+      "critique": "عشوائية داخل العملية، stratification مناسب، واتساق ITT وper-protocol يقوي عدم الدونية. لكن الدراسة مفتوحة وهامش 8% يحتاج قبولًا سريريًا، وتسجيل الناسور يتأثر بوجود drain (detection/classification bias). ثلاث وفيات مقابل صفر تمنع تفسير انخفاض POPF كتفوق شامل.",
+      "updatedAt": "2026-10-15T06:00:00+03:00"
+    },
+    {
+      "id": "G-016",
+      "title": "SIS Guidelines on Management of Intra-Abdominal Infection — 2024 Update",
+      "year": 2024,
+      "category": "G",
+      "specialty": "العدوى داخل البطن والجراحة الطارئة",
+      "evidence": "إرشاد رسمي SIS؛ systematic review وGRADE",
+      "verdict": "يطبّق الآن مع التكييف حسب antibiogram المحلي",
+      "status": "active",
+      "DOI": "10.1089/sur.2024.137",
+      "question": "كيف تُدار العدوى المعقدة داخل البطن من حيث source control واختيار ومدة المضادات؟",
+      "result": "بعد source control كافٍ: لا أكثر من 4 أيام (1-A)، source control خلال 12 ساعة للمخاطر المنخفضة و6 ساعات مع septic shock (1-B)، علاج المضاد خلال ساعة في sepsis عالي الخطورة (1-B)، وde-escalation لأضيق طيف وفق الزرع في HA-IAI عالي الخطورة.",
+      "critique": "منهجية GRADE وبحث حتى فبراير 2024، لكن بعض التوصيات الجديدة تعتمد post-hoc analyses ودراسات رصدية؛ اختيار المضاد لا ينفصل عن المقاومة المحلية والحساسية والوظائف العضوية، والمرضى ذوو source control غير الكافي خارج قاعدة الأربعة أيام.",
+      "updatedAt": "2026-10-15T06:00:00+03:00"
+    },
+    {
+      "id": "C-016",
+      "title": "Primary anastomosis with intraoperative abscess in Crohn disease",
+      "year": 2026,
+      "category": "C",
+      "specialty": "داء كرون والمفاغرة في الحقل الملوث",
+      "evidence": "دراسة أترابية استعادية مع multivariable adjustment و1:2 propensity matching",
+      "verdict": "يستحق المتابعة؛ يدعم تجنب الستوما انتقائيًا بمركز خبير",
+      "status": "active",
+      "DOI": "10.1093/ibd/izag148",
+      "question": "هل وجود خراج مكتشف أثناء ileocecal resection يجعل primary anastomosis غير آمنة لدى مرضى كرون المختارين؟",
+      "result": "810 مرضى: 210 بخراج و600 دونه. الخراج زاد التحويل للمفتوح 29.3% مقابل 10.3% والـdiversion 24.8% مقابل 6.2%. لم يكن مستقلاً للمضاعفات 30 يومًا (OR 1.25؛ P=0.190). بعد PSM (n=474): leak 10.1% مقابل 11.7% (P=0.718)، مضاعفات كلية 41.1% مقابل 38.0% (P=0.571).",
+      "critique": "الحجم جيد وضبط confounding أقوى من المقارنة الخام، لكن التحليل قصر المطابقة على من اختيروا أصلاً للمفاغرة؛ selection bias وconfounding غير المقاس باقيان، ولا توجد CI في الملخص. لا تثبت السلامة لكل خراج ولا تلغي diversion عند sepsis أو malnutrition أو steroid burden أو tissue quality سيئة.",
+      "updatedAt": "2026-10-15T06:00:00+03:00"
     }
   ]
 }
